@@ -1,6 +1,6 @@
 import CanvasItem from './CanvasItem';
 
-function CanvasList({ filteredItems, searchText, isGridView }) {
+function CanvasList({ filteredItems, searchText, isGridView, onDeleteItem }) {
   /* 목록이 없을 때 / 검색 결과가 없을 때 */
   if (filteredItems.length === 0) {
     return (
@@ -22,6 +22,11 @@ function CanvasList({ filteredItems, searchText, isGridView }) {
           title={item.title}
           lastModified={item.lastModified}
           category={item.category}
+          onDelete={e => {
+            e.preventDefault(); // 이벤트의 기본 동작을 막는 메서드
+            //e.stopPropagation(); // 이벤트가 부모 요소로 전파되는 것을 막는 메서드
+            onDeleteItem(item.id);
+          }}
         />
       ))}
     </div>

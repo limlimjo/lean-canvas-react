@@ -7,7 +7,7 @@ function Home() {
   const [searchText, setSearchText] = useState('');
   const [isGridView, setIsGridView] = useState(true);
 
-  const listItems = [
+  const [listItems, setListItems] = useState([
     {
       id: 1,
       title: '친환경 도시 농업 플랫폼',
@@ -32,7 +32,11 @@ function Home() {
       lastModified: '2023-06-01',
       category: '여행',
     },
-  ];
+  ]);
+
+  const handleDeleteItem = id => {
+    setListItems(listItems.filter(item => item.id !== id));
+  };
 
   const filteredItems = listItems.filter(item =>
     item.title.toLowerCase().includes(searchText.toLowerCase()),
@@ -48,6 +52,7 @@ function Home() {
         filteredItems={filteredItems}
         isGridView={isGridView}
         searchText={searchText}
+        onDeleteItem={handleDeleteItem}
       />
     </div>
   );
