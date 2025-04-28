@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CanvasList from '../components/CanvasList';
 import SearchBar from '../components/SearchBar';
 import ViewToggle from '../components/ViewToggle';
@@ -7,38 +7,24 @@ function Home() {
   const [searchText, setSearchText] = useState('');
   const [isGridView, setIsGridView] = useState(true);
 
-  const [listItems, setListItems] = useState([
-    {
-      id: 1,
-      title: '친환경 도시 농업 플랫폼',
-      lastModified: '2023-06-15',
-      category: '농업',
-    },
-    {
-      id: 2,
-      title: 'AI 기반 건강 관리 앱',
-      lastModified: '2023-06-10',
-      category: '헬스케어',
-    },
-    {
-      id: 3,
-      title: '온디맨드 물류 서비스',
-      lastModified: '2023-06-05',
-      category: '물류',
-    },
-    {
-      id: 4,
-      title: 'VR 가상 여행 서비스',
-      lastModified: '2023-06-01',
-      category: '여행',
-    },
-  ]);
+  const [data, setData] = useState([]);
+
+  async function fetchData() {
+    const data = await fetch('http://localhost:8000/canvases')
+      .then(res => res.json())
+      .catch(console.error);
+    setData(data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleDeleteItem = id => {
-    setListItems(listItems.filter(item => item.id !== id));
+    setData(data.filter(item => item.id !== id));
   };
 
-  const filteredItems = listItems.filter(item =>
+  const filteredItems = data.filter(item =>
     item.title.toLowerCase().includes(searchText.toLowerCase()),
   );
 
