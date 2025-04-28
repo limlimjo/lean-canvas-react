@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import CanvasList from '../components/CanvasList';
 import SearchBar from '../components/SearchBar';
 import ViewToggle from '../components/ViewToggle';
+import { getCanvases } from '../api/canvas';
 
 function Home() {
   const [searchText, setSearchText] = useState('');
@@ -10,10 +12,13 @@ function Home() {
   const [data, setData] = useState([]);
 
   async function fetchData() {
-    const data = await fetch('http://localhost:8000/canvases')
-      .then(res => res.json())
-      .catch(console.error);
-    setData(data);
+    // const data = await fetch('http://localhost:8000/canvases')
+    //   .then(res => res.json())
+    //   .catch(console.error);
+    // const response = await axios.get('http://localhost:8000/canvases');
+    // console.log(response);
+    const response = await getCanvases();
+    setData(response.data);
   }
 
   useEffect(() => {
