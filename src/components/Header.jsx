@@ -8,6 +8,7 @@ import {
   FaTimes,
 } from 'react-icons/fa';
 import { useState } from 'react';
+import Button from './Button';
 
 function Header() {
   const navItems = [
@@ -37,9 +38,7 @@ function Header() {
         <button className="md:hidden" onClick={toggleMenu}>
           <FaBars />
         </button>
-        <button className="hidden md:block bg-blue-500 hover:bg-blue-600 text-white font-bold py-1.5 px-4 rounded transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-          리므 강의
-        </button>
+        <Button className="hidden md:block">리므 강의</Button>
       </div>
 
       {/* Mobile Menu */}
