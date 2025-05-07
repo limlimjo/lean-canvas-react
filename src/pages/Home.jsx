@@ -26,9 +26,16 @@ function Home() {
   // 1] 데이터 조회
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['canvases', filter.searchText, filter.category],
-    queryFn: () =>
-      getCanvases({ title_like: filter.searchText, category: filter.category }),
-    initialData: [],
+    queryFn: () => {
+      console.log('fetching data');
+      return getCanvases({
+        title_like: filter.searchText,
+        category: filter.category,
+      });
+    },
+    // initialData: [],
+    staleTime: 1000 * 60 * 5, // 5분 동안 데이터가 신선함(fresh) 상태로 유지됨
+    refetchOnWindowFocus: false, // 창이 포커스될 때마다 refetch 하지 않음
   });
 
   // 2] 등록
