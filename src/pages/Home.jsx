@@ -16,10 +16,11 @@ function Home() {
   // API call
   const {
     isLoading,
-    data,
     error,
+    data,
     execute: fetchData,
   } = useApiRequest(getCanvases, { initialData: [] });
+
   const { isLoading: isLoadingCreate, execute: createNewCanvas } =
     useApiRequest(createCanvas);
 
