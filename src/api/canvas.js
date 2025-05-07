@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 
 // 목록
-export function getCanvases(params) {
+export async function getCanvases(params) {
   const payload = Object.assign(
     {
       _sort: 'lastModified',
@@ -11,7 +11,8 @@ export function getCanvases(params) {
     },
     params,
   );
-  return canvases.get('/', { params: payload });
+  const { data } = await canvases.get('/', { params: payload });
+  return data;
 }
 
 // 저장
